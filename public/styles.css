@@ -191,7 +191,7 @@ a{color:inherit;text-decoration:none}
   align-items:center;
 }
 .band-copy h2{margin:0 0 8px}
-.band-copy p{margin:0; color:var(--muted); line-height:1.55}
+.band-copy p{margin:0 0 24px; color:var(--muted); line-height:1.55}
 .band-points{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
 .pill{
   padding:10px 12px;
@@ -290,7 +290,7 @@ a{color:inherit;text-decoration:none}
 .table tr:last-child td{border-bottom:0}
 .note{margin-top:10px; color:var(--muted); font-size:13px}
 
-.reviews{grid-template-columns:1fr}
+.reviews{display:flex; overflow-x:auto; gap:12px; padding-bottom:12px}
 .review{
   border:1px solid var(--line);
   background: rgba(255,255,255,.86);
@@ -298,6 +298,7 @@ a{color:inherit;text-decoration:none}
   padding:14px;
   position:relative;
   overflow:hidden;
+  flex: 0 0 280px;
 }
 .review::before{
   content:"";
@@ -323,7 +324,10 @@ a{color:inherit;text-decoration:none}
   background: var(--card);
   border-radius: var(--radius);
   padding:14px;
-  min-height: 470px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .contact-title{font-weight:900; margin-bottom:12px}
 .contact-item{padding:10px 0; border-bottom:1px dashed rgba(15,23,42,.10)}
@@ -338,12 +342,13 @@ a{color:inherit;text-decoration:none}
   background: #fff;
   border-radius: var(--radius);
   padding:14px;
-  min-height: 470px;
+  height: 380px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 .row{display:grid; grid-template-columns:1fr; gap:10px}
-label{display:block; font-weight:800; font-size:13px}
+label{display:block; font-weight:800; font-size:13px; margin-top:10px}
 input, textarea{
   width:100%;
   margin-top:8px;
@@ -353,7 +358,7 @@ input, textarea{
   font:inherit;
   outline:none;
 }
-textarea{min-height:120px; resize:vertical}
+textarea{min-height:110px; resize:vertical; margin-bottom:10px}
 input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
 .form-msg{margin-top:10px; color:var(--muted); font-size:13px}
 
@@ -445,7 +450,6 @@ input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
   .services{grid-template-columns: repeat(3, 1fr)}
   .team{grid-template-columns: repeat(3, 1fr)}
   .band-inner{grid-template-columns: 1.2fr .8fr}
-  .reviews{grid-template-columns: repeat(3, 1fr)}
   .contact{grid-template-columns: .95fr 1.05fr}
   .row{grid-template-columns:1fr 1fr}
 }
