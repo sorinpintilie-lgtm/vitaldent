@@ -49,7 +49,45 @@ a{color:inherit;text-decoration:none}
 .nav{display:none; gap:14px; margin-left:auto}
 .nav a{font-size:14px; color:var(--muted)}
 .nav a:hover{color:var(--text)}
+.nav.nav-open{
+  display:flex;
+  position:absolute;
+  top:100%;
+  left:0;
+  right:0;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  flex-direction:column;
+  padding:16px;
+  border-bottom:1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+.nav.nav-open a{
+  padding:8px 0;
+  border-bottom:1px solid rgba(15,23,42,.1);
+}
+.nav.nav-open a:last-child{border-bottom:0}
 .header-cta{display:none}
+
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:4px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:8px;
+  margin-left:auto;
+}
+.hamburger span{
+  width:20px;
+  height:2px;
+  background:var(--text);
+  transition:0.3s;
+}
+.hamburger.open span:nth-child(1){transform: rotate(45deg) translate(6px, 6px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform: rotate(-45deg) translate(6px, -6px);}
 
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
@@ -479,6 +517,11 @@ input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
   .form {
     height: auto;
   }
+
+  /* Mobile header adjustments */
+  .hamburger{display:flex}
+  .brand-logo{height:50px;} /* smaller logo on mobile */
+  .sticky-primary{display:none} /* hide Programează-te on mobile sticky CTA */
 }
 
 /* =========================================================
