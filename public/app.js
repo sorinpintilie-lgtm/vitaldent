@@ -29,6 +29,16 @@ if (sticky && hero) {
   io.observe(hero);
 }
 
+// Hamburger menu toggle
+const hamburger = $(".hamburger");
+const nav = $(".nav");
+if (hamburger && nav) {
+  hamburger.addEventListener("click", () => {
+    nav.classList.toggle("nav-open");
+    hamburger.classList.toggle("open");
+  });
+}
+
 // Contact form submit
 const form = $("#contactForm");
 const msg = $("#formMsg");

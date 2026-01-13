@@ -8,8 +8,29 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
+  <!-- Header Mobile -->
+  <header class="header header-mobile">
+    <div class="container header-inner">
+      <a class="brand" href="#acasa" aria-label="Vital Dent">
+        <img class="brand-logo brand-logo-mobile" src="./logo.png" alt="Vital Dent" />
+      </a>
+
+      <nav class="nav">
+        <a href="#servicii">Servicii</a>
+        <a href="#preturi">Prețuri</a>
+        <a href="#recenzii">Recenzii</a>
+      </nav>
+
+      <button class="hamburger" aria-label="Meniu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Header Desktop -->
+  <header class="header header-desktop">
     <div class="container header-inner">
       <a class="brand" href="#acasa" aria-label="Vital Dent">
         <img class="brand-logo" src="./logo.png" alt="Vital Dent" />
@@ -19,7 +40,6 @@
         <a href="#servicii">Servicii</a>
         <a href="#preturi">Prețuri</a>
         <a href="#recenzii">Recenzii</a>
-        <a href="#contact">Contact</a>
       </nav>
 
       <a class="btn btn-primary header-cta" href="#contact">Programează-te</a>
