@@ -473,6 +473,12 @@ input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
   .team .card-img{
     height: 350px; /* smaller height on mobile */
   }
+
+  /* Fix contact form container height on mobile */
+  .contact-box,
+  .form {
+    height: auto;
+  }
 }
 
 /* =========================================================
