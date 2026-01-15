@@ -12,12 +12,14 @@
   --stroke: rgba(100,187,202,.38);
 
   --radius:18px;
+  --promo-height: 40px;
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;
+  padding-top: calc(var(--promo-height) + env(safe-area-inset-top));
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color:var(--text);
   background:var(--bg);
@@ -26,7 +28,7 @@ a{color:inherit;text-decoration:none}
 .container{ width:min(1240px, 92vw); margin:0 auto; }
 
 .header{
-  position:sticky; top:0; z-index:50;
+  position:sticky; top: calc(var(--promo-height) + env(safe-area-inset-top)); z-index:50;
   backdrop-filter: blur(12px);
   background: linear-gradient(90deg, rgba(255,255,255,.84), rgba(229,242,246,.70));
   border-bottom:1px solid var(--line);
@@ -129,6 +131,93 @@ a{color:inherit;text-decoration:none}
 .btn-soft{
   background: linear-gradient(135deg, rgba(34,197,94,.14), rgba(6,182,212,.14));
   border:1px solid rgba(6,182,212,.28);
+}
+
+/* Promo Bar */
+.promo-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--promo-height);
+  background: #F2B94B;
+  color: #1F2933;
+  font-weight: 350;
+  z-index: 9999;
+  padding-top: env(safe-area-inset-top);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.promo-desktop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  max-width: min(1240px, 92vw);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.promo-desktop span a {
+  color: #2F80ED;
+  text-decoration: none;
+}
+
+.btn-promo {
+  background: #2F80ED;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 350;
+  font-size: 15px;
+  transition: opacity 0.2s;
+}
+
+.btn-promo:hover,
+.btn-promo:focus {
+  opacity: 0.8;
+}
+
+.promo-mobile {
+  display: none;
+  height: 100%;
+  padding: 0 10px;
+}
+
+.promo-mobile .promo-left,
+.promo-mobile .promo-right {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #1F2933;
+}
+
+.promo-mobile .promo-right a {
+  color: #2F80ED;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+@media (max-width: 768px) {
+  .promo-desktop {
+    display: none;
+  }
+  .promo-mobile {
+    display: flex;
+    justify-content: space-between;
+  }
+  .promo-left {
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .promo-right {
+    flex-shrink: 0;
+  }
 }
 
 .hero{
@@ -342,7 +431,7 @@ a{color:inherit;text-decoration:none}
 .table tr:last-child td{border-bottom:0}
 .note{margin-top:10px; color:var(--muted); font-size:13px}
 
-.reviews{display:flex; overflow-x:auto; gap:12px; padding-bottom:12px}
+.reviews{display:flex; gap:0; padding-bottom:0}
 .review{
   border:1px solid var(--line);
   background: rgba(255,255,255,.86);
@@ -350,7 +439,57 @@ a{color:inherit;text-decoration:none}
   padding:14px;
   position:relative;
   overflow:hidden;
-  flex: 0 0 280px;
+  flex: 0 0 100%;
+}
+
+.carousel-controls{
+  display:none;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+}
+.carousel[data-carousel="reviews"] .carousel-container {
+  overflow: hidden;
+}
+.carousel[data-carousel="reviews"] .carousel-controls {
+  display: flex;
+}
+.carousel-prev, .carousel-next{
+  background: var(--p);
+  border: none;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:18px;
+  color:#fff;
+}
+.carousel-prev:hover, .carousel-next:hover{
+  opacity: 0.9;
+}
+.carousel-dots{
+  display:flex;
+  gap:8px;
+  align-items: center;
+  height: 40px;
+}
+.carousel-dots .dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#ccc;
+  border:none;
+  cursor:pointer;
+  display: block;
+}
+.carousel-dots .dot.active{
+  background: var(--p);
+  width:16px;
+  height:16px;
 }
 .review::before{
   content:"";
@@ -379,14 +518,15 @@ a{color:inherit;text-decoration:none}
   height: 380px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  position: relative;
 }
 .contact-title{font-weight:900; margin-bottom:12px}
 .contact-item{padding:10px 0; border-bottom:1px dashed rgba(15,23,42,.10)}
 .contact-item:last-child{border-bottom:0}
 .label{font-size:12px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
 .value{margin-top:6px; display:block; font-weight:700}
-.contact-actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+.contact-actions{display:flex; gap:10px; flex-wrap:wrap; position:absolute; bottom:14px; left:14px; right:14px}
 .contact-map{margin-top:20px; border-radius: var(--radius); overflow:hidden; width:100%;}
 
 .form{
@@ -397,7 +537,8 @@ a{color:inherit;text-decoration:none}
   height: 380px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  position: relative;
 }
 .row{display:grid; grid-template-columns:1fr; gap:10px}
 label{display:block; font-weight:800; font-size:13px; margin-top:10px}
@@ -413,6 +554,7 @@ input, textarea{
 textarea{min-height:110px; resize:vertical; margin-bottom:10px}
 input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
 .form-msg{margin-top:10px; color:var(--muted); font-size:13px}
+.form button{position:absolute; bottom:14px; left:14px; right:14px; margin-top:0}
 
 .hp{
   position:absolute;
@@ -428,6 +570,14 @@ input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
   color:var(--muted);
   font-size:15px;
   background: var(--fill-1);
+}
+@media (max-width: 859px){
+  .footer{
+    padding:32px 0 65px;
+  }
+  .footer-inner{
+    margin-bottom:0;
+  }
 }
 .footer-inner{
   display:grid;
@@ -506,36 +656,79 @@ input:focus, textarea:focus{border-color: rgba(100,187,202,.7)}
   .band-inner{grid-template-columns: 1.2fr .8fr}
   .contact{grid-template-columns: .95fr 1.05fr}
   .row{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns: repeat(4, 1fr)}
+  .contact-box, .form { height: 400px; }
 }
 
 /* Mobile sticky CTA always visible after scrolling a bit */
 @media (max-width: 859px){
   .sticky-cta{display:flex}
 
-  /* Make services and team scrollable horizontally on mobile */
+  /* Carousel controls visible on mobile */
+  .carousel-controls{display:flex}
+
+  /* Carousel container for sliding */
+  .carousel-container{overflow:hidden}
+
+  /* Make services, team, reviews slideable on mobile */
   .services,
-  .team{
+  .team,
+  .reviews{
     display: flex;
-    overflow-x: auto;
-    gap: 12px;
-    padding-bottom: 12px; /* space for scrollbar */
+    gap: 0;
+    padding-bottom: 0;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
   }
   .services .card,
-  .team .card{
-    flex: 0 0 280px; /* fixed width for horizontal scroll */
+  .team .card,
+  .reviews .review{
+    flex: 0 0 100%;
   }
   .team .card-img{
-    height: 350px; /* smaller height on mobile */
+    height: 450px; /* larger height on mobile */
   }
 
   /* Fix contact form container height on mobile */
-  .contact-box,
+  .contact-box {
+    height: 370px;
+  }
   .form {
-    height: auto;
+    height: 460px;
   }
 
   /* Mobile header adjustments */
   .hamburger{display:flex}
+
+  /* Hero video focus on middle for mobile */
+  .hero-bg-video { object-position: center; }
+
+  /* Reduce bottom spacing in hero on mobile */
+  .hero-inner { padding-bottom: 0px; }
+
+  /* Mobile footer layout */
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+  }
+  .footer-section:nth-child(1) { /* sitemap */
+    grid-row: 3;
+    grid-column: 1;
+  }
+  .footer-section:nth-child(2) { /* program */
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+  .footer-section:nth-child(3) { /* contact */
+    grid-row: 1;
+    grid-column: 1 / -1;
+  }
+  .footer-section:nth-child(4) { /* legal */
+    grid-row: 3;
+    grid-column: 2;
+  }
 }
 
 /* =========================================================
@@ -657,9 +850,9 @@ input:focus, textarea:focus{
 .hero-overlay{
   position:absolute; inset:0;
   background:
-    radial-gradient(900px 520px at 18% 18%, rgba(100,187,202,.04), transparent 58%),
-    linear-gradient(90deg, rgba(255,255,255,.60), rgba(255,255,255,.25) 55%, rgba(255,255,255,.01)),
-    linear-gradient(180deg, rgba(255,255,255,.50), rgba(255,255,255,.32));
+    radial-gradient(900px 520px at 18% 18%, rgba(100,187,202,.02), transparent 58%),
+    linear-gradient(90deg, rgba(255,255,255,.40), rgba(255,255,255,.15) 55%, rgba(255,255,255,.005)),
+    linear-gradient(180deg, rgba(255,255,255,.30), rgba(255,255,255,.20));
 }
 
 .hero-inner{ position:relative; z-index:2; padding:120px 0 70px; }
